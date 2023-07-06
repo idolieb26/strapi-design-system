@@ -1,0 +1,1 @@
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const e=["disabled","onBlur","onChange","onFocus","onMouseDown","readOnly","value"],a={9:/[0-9]/,a:/[A-Za-z]/,"*":/[A-Za-z0-9]/};exports.CONTROLLED_PROPS=e;exports.defaultFormatChars=a;

@@ -1,0 +1,1 @@
+"use strict";const s=require("react"),a=e=>e&&typeof e=="object"&&"default"in e?e:{default:e},t=a(s);class c extends t.default.Component{render(){const{children:n,...r}=this.props;return t.default.cloneElement(n,r)}}module.exports=c;
