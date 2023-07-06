@@ -62,7 +62,7 @@ const getClosestValue = (value: string|undefined, step: number=1) => {
 
   const [valueHours, valueMinutes] = value?.split(':') ?? [];
 
-  const hours = times.reduce((prev, curr) => {
+  let hours = times.reduce((prev, curr) => {
     const [h] = curr.split(':');
 
     // @ts-expect-error this is gonna be refactored in an upcoming initiative
@@ -76,7 +76,18 @@ const getClosestValue = (value: string|undefined, step: number=1) => {
     return Math.abs(minutes - valueMinutes) < Math.abs(prev - valueMinutes) ? minutes : prev;
   }, times[0].split(':')[1]);
 
-  return `${hours}:${minutes}`;
+  let timeIdentifier: string = 'am';
+  if (parseInt(hours) > 11) {
+    timeIdentifier = 'pm';
+    const hourNumber = parseInt(hours) - 12;
+    if (hourNumber < 10) {
+      hours = `0${hourNumber}`
+    } else {
+      hours = hourNumber.toString();
+    }
+  } 
+
+  return `${hours}:${minutes}${timeIdentifier}`;
 };
 
 export const TimePicker = ({ id, value, step = 15, clearLabel, disabled=false, onClear, onChange, label="", ...props }: TimePickerProps) => {
@@ -86,6 +97,7 @@ export const TimePicker = ({ id, value, step = 15, clearLabel, disabled=false, o
 
   const handleClear = () => {
     if (onClear) {
+      setInputValue('00:00am');
       onClear();
       /**
        * TODO: refactor this so we can just target the input...?
@@ -95,11 +107,19 @@ export const TimePicker = ({ id, value, step = 15, clearLabel, disabled=false, o
   };
 
   const _onChange = (e) => {
-    const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/
+    const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9](a|p)m$/;
     const number = e.target.value;
 
     if (onChange && timeRegex.test(number)) {
-      onChange(number);
+      const isPM = number.includes('am') ? false : true;
+      const validTime = number.replace('am', '').replace('pm', '');
+      const minute = parseInt(validTime.split(':')[1]);
+      let hour = validTime.split(':')[0];
+      if (isPM) {
+        hour = parseInt(hour) + 12;
+      }
+
+      onChange(`${hour}:${minute}`);
     }
 
     setInputValue(number);
@@ -110,8 +130,10 @@ export const TimePicker = ({ id, value, step = 15, clearLabel, disabled=false, o
     /[0-3]/,
     ':',
     /[0-5]/,
-    /[0-9]/
-  ]
+    /[0-9]/,
+    /(a|p)/,
+    /[m]/,
+  ];
 
   return (
     <InputMask

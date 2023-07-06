@@ -1,17 +1,17 @@
-"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const u=require("react/jsx-runtime"),h=require("react"),f=require("@strapi/icons"),I=require("styled-components");require("../Field/Field.cjs");require("../Field/FieldLabel.cjs");require("../Field/FieldInput.cjs");require("../Field/FieldContext.cjs");require("../Typography/Typography.cjs");const $=require("../Field/FieldAction.cjs"),T=require("../Flex/Flex.cjs"),k=require("../hooks/useId.cjs"),C=require("./InputMask/index.cjs"),M=require("../TextInput/TextInput.cjs"),v=e=>e&&typeof e=="object"&&"default"in e?e:{default:e},x=v(I),R=(e,o=1)=>{const i=[];let s=0;for(let t=0;t<24;t++)for(s=0;s<60;)i.push(`${t<10?`0${t}`:t}:${s<10?`0${s}`:s}`),s+=o;const[r,c]=e?.split(":")??[],a=i.reduce((t,l)=>{const[n]=l.split(":");return Math.abs(n-r)<Math.abs(t-r)?n:t},i[0].split(":")[0]),d=i.reduce((t,l)=>{const n=l.split(":")[1];return Math.abs(n-c)<Math.abs(t-c)?n:t},i[0].split(":")[1]);return`${a}:${d}`},_=({id:e,value:o,step:j=15,clearLabel:i,disabled:s=!1,onClear:r,onChange:c,label:a="",...d})=>{const t=k.useId(e),l=h.useRef(null),[n,m]=h.useState(R(o)),F=()=>{r&&(r(),l.current.inputWrapperRef.current.focus())},b=q=>{const y=/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/,p=q.target.value;c&&y.test(p)&&c(p),m(p)},g=[/[0-2]/,/[0-3]/,":",/[0-5]/,/[0-9]/];return u.jsx(C,{mask:g,value:n,onChange:b,disabled:s,children:u.jsx(M.TextInput,{id:t,ref:l,label:a,startAction:u.jsx(A,{children:u.jsx(f.Clock,{})}),endAction:r?u.jsx($.FieldAction,{label:"close",onClick:F,"aria-disabled":s||void 0,children:u.jsx(S,{})}):void 0,"aria-autocomplete":"none","aria-label":"close",type:"text",disabled:s,...d})})},A=x.default(T.Flex)`
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const o=require("react/jsx-runtime"),j=require("react"),g=require("@strapi/icons"),k=require("styled-components");require("../Field/Field.cjs");require("../Field/FieldLabel.cjs");require("../Field/FieldInput.cjs");require("../Field/FieldContext.cjs");require("../Typography/Typography.cjs");const C=require("../Field/FieldAction.cjs"),v=require("../Flex/Flex.cjs"),R=require("../hooks/useId.cjs"),_=require("./InputMask/index.cjs"),A=require("../TextInput/TextInput.cjs"),S=t=>t&&typeof t=="object"&&"default"in t?t:{default:t},I=S(k),P=(t,m=1)=>{const r=[];let s=0;for(let e=0;e<24;e++)for(s=0;s<60;)r.push(`${e<10?`0${e}`:e}:${s<10?`0${s}`:s}`),s+=m;const[l,u]=t?.split(":")??[];let n=r.reduce((e,c)=>{const[i]=c.split(":");return Math.abs(i-l)<Math.abs(e-l)?i:e},r[0].split(":")[0]);const h=r.reduce((e,c)=>{const i=c.split(":")[1];return Math.abs(i-u)<Math.abs(e-u)?i:e},r[0].split(":")[1]);let a="am";if(parseInt(n)>11){a="pm";const e=parseInt(n)-12;e<10?n=`0${e}`:n=e.toString(),console.log("default hours: ",n,e)}return`${n}:${h}${a}`},w=({id:t,value:m,step:$=15,clearLabel:r,disabled:s=!1,onClear:l,onChange:u,label:n="",...h})=>{const a=R.useId(t),e=j.useRef(null),[c,i]=j.useState(P(m)),F=()=>{l&&(i("00:00am"),l(),e.current.inputWrapperRef.current.focus())},b=y=>{const T=/^([0-1]?[0-9]|2[0-3]):[0-5][0-9](a|p)m$/,d=y.target.value;if(u&&T.test(d)){const M=!d.includes("am"),f=d.replace("am","").replace("pm",""),x=parseInt(f.split(":")[1]);let p=f.split(":")[0];M&&(p=parseInt(p)+12),console.log("~~~~~~~~: ",`${p}:${x}`),u(`${p}:${x}`)}i(d)},q=[/[0-2]/,/[0-3]/,":",/[0-5]/,/[0-9]/,/(a|p)/,/[m]/];return o.jsx(_,{mask:q,value:c,onChange:b,disabled:s,children:o.jsx(A.TextInput,{id:a,ref:e,label:n,startAction:o.jsx(L,{children:o.jsx(g.Clock,{})}),endAction:l?o.jsx(C.FieldAction,{label:"close",onClick:F,"aria-disabled":s||void 0,children:o.jsx(V,{})}):void 0,"aria-autocomplete":"none","aria-label":"close",type:"text",disabled:s,...h})})},L=I.default(v.Flex)`
   & > svg {
     height: 1rem;
     width: 1rem;
   }
 
   & > svg path {
-    fill: ${({theme:e})=>e.colors.neutral500};
+    fill: ${({theme:t})=>t.colors.neutral500};
   }
-`,S=x.default(f.Cross)`
+`,V=I.default(g.Cross)`
   height: ${11/16}rem;
   width: ${11/16}rem;
 
   path {
-    fill: ${({theme:e})=>e.colors.neutral600};
+    fill: ${({theme:t})=>t.colors.neutral600};
   }
-`;exports.TimePicker=_;
+`;exports.TimePicker=w;
