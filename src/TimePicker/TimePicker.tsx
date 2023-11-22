@@ -76,10 +76,11 @@ const getClosestValue = (value: string|undefined, step: number=1) => {
     return Math.abs(minutes - valueMinutes) < Math.abs(prev - valueMinutes) ? minutes : prev;
   }, times[0].split(':')[1]);
 
+  const intHour = parseInt(hours);
   let timeIdentifier: string = 'am';
-  if (parseInt(hours) > 11) {
-    timeIdentifier = 'pm';
-    const hourNumber = parseInt(hours) - 12;
+  if (intHour > 11) {
+    timeIdentifier = intHour === 24 ? 'am' : 'pm';
+    const hourNumber = intHour !== 12 ? intHour - 12 : 12;
     if (hourNumber < 10) {
       hours = `0${hourNumber}`
     } else {
@@ -115,8 +116,12 @@ export const TimePicker = ({ id, value, step = 15, clearLabel, disabled=false, o
       const validTime = number.replace('am', '').replace('pm', '');
       const minute = parseInt(validTime.split(':')[1]);
       let hour = validTime.split(':')[0];
-      if (isPM) {
-        hour = parseInt(hour) + 12;
+      const intHour = parseInt(hour);
+
+      if (isPM && intHour !== 12) {
+        hour = intHour + 12;
+      } else if (!isPM && intHour === 12) {
+        hour = intHour + 12;
       }
 
       onChange(`${hour}:${minute}`);
@@ -127,7 +132,7 @@ export const TimePicker = ({ id, value, step = 15, clearLabel, disabled=false, o
 
   const mask = [
     /[0-2]/,
-    /[0-9]/,
+    /[0-3]/,
     ':',
     /[0-5]/,
     /[0-9]/,
