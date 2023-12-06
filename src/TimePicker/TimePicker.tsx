@@ -136,7 +136,7 @@ export const TimePicker = ({ id, value, step = 15, clearLabel, disabled=false, o
 
   const mask = [
     /[0-2]/,
-    /[0-3]/,
+    /[0-9]|2[0-3]/,
     ':',
     /[0-5]/,
     /[0-9]/,

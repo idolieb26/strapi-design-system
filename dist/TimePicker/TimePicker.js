@@ -50,7 +50,7 @@ const F = (s, d = 1) => {
     l && (m("00:00am"), l(), a.current.inputWrapperRef.current.focus());
   };
   return u(S, {
-    mask: [/[0-2]/, /[0-3]/, ":", /[0-5]/, /[0-9]/, /(a|p)/, /[m]/],
+    mask: [/[0-2]/, /[0-9]|2[0-3]/, ":", /[0-5]/, /[0-9]/, /(a|p)/, /[m]/],
     value: t,
     onChange: (k) => {
       const M = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9](a|p)m$/, p = k.target.value;
