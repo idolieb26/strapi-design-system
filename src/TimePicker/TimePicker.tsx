@@ -78,11 +78,9 @@ const getClosestValue = (value: string|undefined, step: number=1) => {
 
   const intHour = parseInt(hours);
   let timeIdentifier: string = 'am';
-  console.log("intHour:", intHour);
   if (intHour > 11) {
     timeIdentifier = intHour === 24 ? 'am' : 'pm';
     const hourNumber = intHour !== 12 ? intHour - 12 : 12;
-    console.log("hourNumber:", hourNumber);
     if (hourNumber < 10) {
       hours = hourNumber === 0 ? `12` : `0${hourNumber}`;
       // timeIdentifier = hourNumber === 0 ? 'am' : 'pm';
@@ -90,14 +88,11 @@ const getClosestValue = (value: string|undefined, step: number=1) => {
       hours = hourNumber.toString();
     }
   } else if (intHour === 0) {
-    console.log("else if :", intHour);
     timeIdentifier = 'am';
     hours = '12';
-  } else {
-    console.log("else:", intHour);
   }
 
-  return `11:${minutes} ${timeIdentifier}`;
+  return `${hours}:${minutes}${timeIdentifier}`;
 };
 
 export const TimePicker = ({ id, value, step = 15, clearLabel, disabled=false, onClear, onChange, label="", ...props }: TimePickerProps) => {
