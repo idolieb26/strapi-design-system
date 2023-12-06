@@ -13,41 +13,41 @@ import { useId as A } from "../hooks/useId.js";
 import S from "./InputMask/index.js";
 import { TextInput as V } from "../TextInput/TextInput.js";
 const F = (s, d = 1) => {
-  const i = [];
+  const n = [];
   let t = 0;
   for (let e = 0; e < 24; e++)
     for (t = 0; t < 60; )
-      i.push(`${e < 10 ? `0${e}` : e}:${t < 10 ? `0${t}` : t}`), t += d;
-  const [l, c] = s?.split(":") ?? [];
-  let r = i.reduce((e, m) => {
-    const [n] = m.split(":");
-    return Math.abs(n - l) < Math.abs(e - l) ? n : e;
-  }, i[0].split(":")[0]);
-  const g = i.reduce((e, m) => {
-    const n = m.split(":")[1];
-    return Math.abs(n - c) < Math.abs(e - c) ? n : e;
-  }, i[0].split(":")[1]), o = parseInt(r);
+      n.push(`${e < 10 ? `0${e}` : e}:${t < 10 ? `0${t}` : t}`), t += d;
+  const [i, c] = s?.split(":") ?? [];
+  let l = n.reduce((e, m) => {
+    const [r] = m.split(":");
+    return Math.abs(r - i) < Math.abs(e - i) ? r : e;
+  }, n[0].split(":")[0]);
+  const g = n.reduce((e, m) => {
+    const r = m.split(":")[1];
+    return Math.abs(r - c) < Math.abs(e - c) ? r : e;
+  }, n[0].split(":")[1]), o = parseInt(l);
   let a = "am";
   if (console.log("intHour:", o), o > 11) {
     a = o === 24 ? "am" : "pm";
     const e = o !== 12 ? o - 12 : 12;
-    console.log("hourNumber:", e), e < 10 ? r = e === 0 ? "12" : `0${e}` : r = e.toString();
+    console.log("hourNumber:", e), e < 10 ? l = e === 0 ? "12" : `0${e}` : l = e.toString();
   } else
-    o === 0 ? (console.log("else if :", o), a = "am", r = "12") : console.log("else:", o);
-  return `${r}:${g}${a}`;
+    o === 0 ? (console.log("else if :", o), a = "am", l = "12") : console.log("else:", o);
+  return `11:${g} ${a}`;
 }, Y = ({
   id: s,
   value: d,
   step: C = 15,
-  clearLabel: i,
+  clearLabel: n,
   disabled: t = !1,
-  onClear: l,
+  onClear: i,
   onChange: c,
-  label: r = "",
+  label: l = "",
   ...g
 }) => {
-  const o = A(s), a = v(null), [e, m] = H(F(d)), n = () => {
-    l && (m("00:00am"), l(), a.current.inputWrapperRef.current.focus());
+  const o = A(s), a = v(null), [e, m] = H(F(d)), r = () => {
+    i && (m("00:00am"), i(), a.current.inputWrapperRef.current.focus());
   };
   return u(S, {
     mask: [/[0-2]/, /[0-3]/, ":", /[0-5]/, /[0-9]/, /(a|p)/, /[m]/],
@@ -66,13 +66,13 @@ const F = (s, d = 1) => {
     children: u(V, {
       id: o,
       ref: a,
-      label: r,
+      label: l,
       startAction: u(N, {
         children: u(T, {})
       }),
-      endAction: l ? u(w, {
+      endAction: i ? u(w, {
         label: "close",
-        onClick: n,
+        onClick: r,
         "aria-disabled": t || void 0,
         children: u(P, {})
       }) : void 0,

@@ -97,7 +97,7 @@ const getClosestValue = (value: string|undefined, step: number=1) => {
     console.log("else:", intHour);
   }
 
-  return `${hours}:${minutes}${timeIdentifier}`;
+  return `11:${minutes} ${timeIdentifier}`;
 };
 
 export const TimePicker = ({ id, value, step = 15, clearLabel, disabled=false, onClear, onChange, label="", ...props }: TimePickerProps) => {
