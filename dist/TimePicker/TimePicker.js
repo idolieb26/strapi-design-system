@@ -34,7 +34,7 @@ const F = (s, d = 1) => {
     console.log("hourNumber:", e), e < 10 ? r = e === 0 ? "12" : `0${e}` : r = e.toString();
   } else
     o === 0 ? (console.log("else if :", o), a = "am", r = "12") : console.log("else:", o);
-  return `${r}:${g}${a}`;
+  return `${r}:${g} ${a}`;
 }, Y = ({
   id: s,
   value: d,
